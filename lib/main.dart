@@ -1,10 +1,26 @@
+import 'package:download_manager/download/download_manager.dart';
 import 'package:download_manager/home/home_screen.dart';
 import 'package:download_manager/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final downloadManager = DownloadManager();
+  await downloadManager.init();
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        downloadManagerProvider.overrideWithValue(downloadManager),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,7 +37,11 @@ class MyApp extends StatelessWidget {
         AppLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomeScreen(),
+      onGenerateRoute: (settings) => MaterialPageRoute(
+        builder: (context) => HomeScreen(
+          deepLinkUrl: settings.name,
+        ),
+      ),
     );
   }
 }

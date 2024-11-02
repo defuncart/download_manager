@@ -13,7 +13,7 @@ void main() {
   );
 
   generateAppIconAndroidForeground(
-    padding: const EdgeInsets.all(96),
+    padding: const EdgeInsets.all(32),
     onBuildIcon: (size) => Theme(
       data: lightTheme,
       child: const AppIcon(
@@ -44,7 +44,7 @@ class AppIcon extends StatelessWidget {
         child: Center(
           child: Icon(
             Icons.download,
-            size: size * 0.6,
+            size: size * 0.7,
             color: Colors.white,
           ),
         ),
