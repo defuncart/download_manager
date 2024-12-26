@@ -75,6 +75,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             onRetryDownload: ref.read(taskControllerProvider.notifier).retry,
             onOpenDownloadedFile: ref.read(taskControllerProvider.notifier).openDownloadedFile,
           ),
+        // TODO: Remove once migrated to riverpod v3
+        _ => const SizedBox.shrink(),
       },
       floatingActionButton: FloatingActionButton.small(
         onPressed: () => showDialog(

@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -185,4 +186,4 @@ class DownloadManager {
 }
 
 @riverpod
-DownloadManager downloadManager(DownloadManagerRef ref) => throw StateError('Not initialized');
+DownloadManager downloadManager(Ref ref) => throw StateError('Not initialized');
