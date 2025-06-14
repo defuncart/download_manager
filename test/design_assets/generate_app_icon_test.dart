@@ -13,7 +13,6 @@ void main() {
   );
 
   generateAppIconAndroidForeground(
-    padding: EdgeInsets.zero,
     onBuildIcon: (size) => Theme(
       data: lightTheme,
       child: AppIcon(

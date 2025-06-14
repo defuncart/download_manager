@@ -26,7 +26,7 @@ enum DownloadManagerTaskStatus {
   complete,
   failed,
   canceled,
-  paused;
+  paused,
 }
 
 class DownloadManager {
@@ -35,9 +35,9 @@ class DownloadManager {
 
   Future<void> init() async {
     await FlutterDownloader.initialize(
-        debug: true, // optional: set to false to disable printing logs to console (default: true)
-        ignoreSsl: true // option: set to false to disable working with http links (default: false)
-        );
+      debug: true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl: true, // option: set to false to disable working with http links (default: false)
+    );
     final downloadsDir = await _getDownloadDir();
     // _localDir = p.join(downloadsDir, '_DM');
     // if (!await Directory(_localDir).exists()) {
@@ -67,21 +67,23 @@ class DownloadManager {
       return [];
     }
 
-    return tasks.map((task) => (
-          name: task.filename,
-          url: task.url,
-          taskId: task.taskId,
-          status: switch (task.status) {
-            DownloadTaskStatus.undefined => DownloadManagerTaskStatus.undefined,
-            DownloadTaskStatus.enqueued => DownloadManagerTaskStatus.enqueued,
-            DownloadTaskStatus.running => DownloadManagerTaskStatus.running,
-            DownloadTaskStatus.complete => DownloadManagerTaskStatus.complete,
-            DownloadTaskStatus.failed => DownloadManagerTaskStatus.failed,
-            DownloadTaskStatus.canceled => DownloadManagerTaskStatus.canceled,
-            DownloadTaskStatus.paused => DownloadManagerTaskStatus.paused,
-          },
-          progress: task.progress / 100,
-        ));
+    return tasks.map(
+      (task) => (
+        name: task.filename,
+        url: task.url,
+        taskId: task.taskId,
+        status: switch (task.status) {
+          DownloadTaskStatus.undefined => DownloadManagerTaskStatus.undefined,
+          DownloadTaskStatus.enqueued => DownloadManagerTaskStatus.enqueued,
+          DownloadTaskStatus.running => DownloadManagerTaskStatus.running,
+          DownloadTaskStatus.complete => DownloadManagerTaskStatus.complete,
+          DownloadTaskStatus.failed => DownloadManagerTaskStatus.failed,
+          DownloadTaskStatus.canceled => DownloadManagerTaskStatus.canceled,
+          DownloadTaskStatus.paused => DownloadManagerTaskStatus.paused,
+        },
+        progress: task.progress / 100,
+      ),
+    );
   }
 
   void _bindBackgroundIsolate() {

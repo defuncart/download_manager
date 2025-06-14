@@ -63,18 +63,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: switch (state) {
         AsyncLoading() => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: CircularProgressIndicator(),
+        ),
         AsyncError(:final error) => Center(
-            child: Text(error.toString()),
-          ),
+          child: Text(error.toString()),
+        ),
         AsyncData(:final value) => TasksList(
-            tasks: value,
-            onPauseDownload: ref.read(taskControllerProvider.notifier).pause,
-            onResumeDownload: ref.read(taskControllerProvider.notifier).resume,
-            onRetryDownload: ref.read(taskControllerProvider.notifier).retry,
-            onOpenDownloadedFile: ref.read(taskControllerProvider.notifier).openDownloadedFile,
-          ),
+          tasks: value,
+          onPauseDownload: ref.read(taskControllerProvider.notifier).pause,
+          onResumeDownload: ref.read(taskControllerProvider.notifier).resume,
+          onRetryDownload: ref.read(taskControllerProvider.notifier).retry,
+          onOpenDownloadedFile: ref.read(taskControllerProvider.notifier).openDownloadedFile,
+        ),
         // TODO: Remove once migrated to riverpod v3
         _ => const SizedBox.shrink(),
       },
@@ -155,17 +155,17 @@ class TasksList extends StatelessWidget {
           ),
           trailing: switch (task.status) {
             DownloadManagerTaskStatus.paused => IconButton(
-                onPressed: () => onResumeDownload(task),
-                icon: Icon(Icons.play_arrow),
-              ),
+              onPressed: () => onResumeDownload(task),
+              icon: Icon(Icons.play_arrow),
+            ),
             DownloadManagerTaskStatus.running => IconButton(
-                onPressed: () => onPauseDownload(task),
-                icon: Icon(Icons.pause),
-              ),
+              onPressed: () => onPauseDownload(task),
+              icon: Icon(Icons.pause),
+            ),
             DownloadManagerTaskStatus.failed => IconButton(
-                onPressed: () => onRetryDownload(task),
-                icon: Icon(Icons.sync),
-              ),
+              onPressed: () => onRetryDownload(task),
+              icon: Icon(Icons.sync),
+            ),
             _ => null,
           },
         );
